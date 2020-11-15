@@ -21,7 +21,7 @@ $.ajax({
     console.log(response);
 
     // Transfer content to HTML
-    $(".city").html("<h1>" + response.name + " (" + moment().format('M/D/YYYY') + ")</h1>");
+    $(".city").html("<h6 class=\"card-title\">" + response.name + " (" + moment().format('M/D/YYYY') + ")</h6>");
    
     // Convert the temp to fahrenheit
     var tempF = (response.main.temp - 273.15) * 1.80 + 32;
@@ -30,7 +30,7 @@ $.ajax({
     $(".tempF").text("Temperature: " + tempF.toFixed(2) + " " + String.fromCharCode(176) + "F");
     $(".humidity").text("Humidity: " + response.main.humidity);
     $(".wind").text("Wind Speed: " + response.wind.speed);
-    
+
     // Log the data in the console as well
     console.log("Wind Speed: " + response.wind.speed);
     console.log("Humidity: " + response.main.humidity);
@@ -48,7 +48,19 @@ $.ajax({
     }).then(function(response) {
         console.log(response)
 
-        $(".uvi").text("UV Index: " + response.value);
+        $(".uvi").html("<p>UV Index: <span class=\"badge badge-secondary\">" + response.value + "</span></p>")
+
+        // Set the color of the badge
+        if(parseInt(response.value) >= 11)
+            $(".badge-secondary").attr("style", "background-color: #B567A4");
+        if(parseInt(response.value) >= 8 && parseInt(response.value) <= 10)
+            $(".badge-secondary").attr("style", "background-color: #E53210");
+        if(parseInt(response.value) >= 6 && parseInt(response.value) <= 7)
+            $(".badge-secondary").attr("style", "background-color: #F18B00");
+        if(parseInt(response.value) >= 3 && parseInt(response.value) <= 5)
+            $(".badge-secondary").attr("style", "background-color: #FFF300");
+        if(parseInt(response.value) >= 0 && parseInt(response.value) <= 2)
+            $(".badge-secondary").attr("style", "background-color: #3EA72D");    
 
         console.log("UV Index: " + response.value);
     });
