@@ -12,3 +12,7 @@ body {
     border-bottom: 10px solid black;
     padding: 0;
 }
+
+.card-title {
+    font-size: 10px;
+}

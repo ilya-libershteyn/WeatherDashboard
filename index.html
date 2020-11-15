@@ -23,18 +23,29 @@
         <h1 class="display-3">Weather Dashboard</h1>    
     </header>
     <!-- Grid > Rows and columns to create the layout -->
-    <!-- Form and button styles for the search input -->
-    <!-- List group for the sidebar buttons -->
-    <!-- Card for the main content area -->
-    <!-- Retrieved data will be dumped here -->
-    <div class="city"></div>
-    <div class="wind"></div>
-    <div class="humidity"></div>
-    <div class="temp"></div>
-
+    <div class="row">
+      <div class="col-2">
+        
+      </div>
+      <div class="col">
+        <!-- Form and button styles for the search input -->
+        <!-- List group for the sidebar buttons -->
+        <div class="card">
+          <div class="card-body">
+            <!-- Card for the main content area -->
+            <!-- Retrieved data will be dumped here -->
+            <div class="city"><h5 class="card-title"></h5></div>
+            <div class="tempF"></div>
+            <div class="humidity"></div>
+            <div class="wind"></div>  
+            <div class="uvi"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Add extra div for the bonus Fahrenheit temp -->
-    <div class="tempF"></div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"type="text/javascript"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./Assets/JS/main.js" type="text/javascript"></script>
 </body>
