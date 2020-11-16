@@ -34,3 +34,7 @@ body {
 .hide {
     display: none;
 }
+
+#city {
+    width: 100%;
+}

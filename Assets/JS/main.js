@@ -1,9 +1,11 @@
 // This is our API key
 const API_KEY = "93f9fe3c09bbe43ec2c0a485b0a0261d";
 
-searchBtn = $("#search");
-searchFld = $("#search_field");
-display = $("#display");
+var searchBtn = $("#search");
+var searchFld = $("#search_field");
+var display = $("#display");
+var citiesList = $("#cities");
+var cities = [];
 
 // Here we are building the URL we need to query the database
 function queryAPI(city)
@@ -12,6 +14,11 @@ function queryAPI(city)
     "q=" + city + "&appid=" + API_KEY;
     var lat, lon;
 
+    if(display.hasClass("hide"))
+    {
+        display.removeClass("hide");
+    }
+
     // Here we run our AJAX call to the OpenWeatherMap API
     $.ajax({
         url: queryURL,
@@ -19,7 +26,6 @@ function queryAPI(city)
     })
     // We store all of the retrieved data inside of an object called "response"
     .then(function(response) {
-
         // Log the queryURL
         console.log(queryURL);
 
@@ -42,9 +48,9 @@ function queryAPI(city)
         $(".wind").text("Wind Speed: " + output.wind.speed);
 
         // Log the data in the console as well
-        console.log("Wind Speed: " + output.wind.speed);
-        console.log("Humidity: " + output.main.humidity);
-        console.log("Temperature (F): " + tempF);
+        //console.log("Wind Speed: " + output.wind.speed);
+        //console.log("Humidity: " + output.main.humidity);
+        //console.log("Temperature (F): " + tempF);
 
         lat = response.city.coord.lat;
         lon = response.city.coord.lon;
@@ -56,7 +62,7 @@ function queryAPI(city)
             url: queryURL,
             method: "GET"
         }).then(function(response) {
-            console.log(response)
+            //console.log(response)
 
             $(".uvi").html("<p>UV Index: <span class=\"badge badge-secondary\">" + response.value + "</span></p>")
 
@@ -72,7 +78,7 @@ function queryAPI(city)
             if(parseInt(response.value) >= 0 && parseInt(response.value) <= 2)
                 $(".badge-secondary").attr("style", "background-color: #3EA72D"); // Green
 
-            console.log("UV Index: " + response.value);
+            //console.log("UV Index: " + response.value);
         });
 
         var forecast = $("#5day");
@@ -94,18 +100,71 @@ function queryAPI(city)
     });
 }
 
+function queryLastCity()
+{
+    input = localStorage.getItem("lastCity");
+    //console.log(input);
+    if(input)
+    {
+        queryAPI(input);
+    }
+
+    citiesReloaded = JSON.parse(localStorage.getItem("cities"));
+    console.log(citiesReloaded)
+    if(citiesReloaded)
+    {
+
+        for(var i = 0; i < citiesReloaded.length; i++)
+        {
+            var newBtn = $("<button>").attr("id", "city");
+            newBtn.attr("type", "submit");
+            newBtn.text(citiesReloaded[i]);
+            newBtn.addClass("btn btn-rounded");
+            citiesList.append(newBtn);
+        }
+    }
+}
+
+queryLastCity();
+
 searchBtn.on("click", function(event)
 {
     event.preventDefault();
 
     input = searchFld.val();
-    console.log(input);
-    searchFld.val('');
+    //console.log(input);
 
-    if(display.hasClass("hide"))
+    if(input.length == 0)
     {
-        display.removeClass("hide");
+        return;
     }
+
+    searchFld.val('');
+    localStorage.setItem("lastCity", input);
+    // Ensure it doesn't create buttons for the same city
+    if(jQuery.inArray(input, cities) == -1)
+    {
+        var newBtn = $("<button>").attr("id", "city");
+        newBtn.attr("type", "submit");
+        newBtn.text(input);
+        newBtn.addClass("btn btn-rounded");
+        citiesList.append(newBtn);
+        
+        cities.push(input);
+
+        localStorage.setItem("cities", JSON.stringify(cities));
+    }
+
+    queryAPI(input);
+});
+
+citiesList.on("click", $("#city"), function(event)
+{
+    event.preventDefault();
+
+    input = $(event.target).text();
+    console.log(input);
+    localStorage.setItem("lastCity", input);
 
     queryAPI(input);
 });
