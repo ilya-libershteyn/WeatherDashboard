@@ -30,7 +30,7 @@ $.ajax({
 
     // add temp content to html
     $(".tempF").text("Temperature: " + tempF.toFixed(2) + " " + String.fromCharCode(176) + "F");
-    $(".humidity").text("Humidity: " + output.main.humidity);
+    $(".humidity").text("Humidity: " + output.main.humidity + "%");
     $(".wind").text("Wind Speed: " + output.wind.speed);
 
     // Log the data in the console as well
@@ -66,4 +66,20 @@ $.ajax({
 
         console.log("UV Index: " + response.value);
     });
+
+    var forecast = $("#5day");
+    var day = 1;
+
+    for(var i = 3; i < response.list.length; i += 8)
+    {
+        //$("#day" + day).children().children().children().text(response.list[i].dt_txt);
+        $("#title" + day).text(moment(response.list[i].dt_txt).format('MM/DD/YYYY'));
+        
+        var tempD = (response.list[i].main.temp - 273.15) * 1.80 + 32;
+
+        $("#temp" + day).text("Temp: " + tempD.toFixed(2) + String.fromCharCode(176) + "F");
+        $("#hum" + day).text("Humidity: " + response.list[i].main.humidity + "%");
+
+        day++;
+    }
 });

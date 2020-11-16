@@ -16,3 +16,17 @@ body {
 .card-title {
     font-size: 25px;
 }
+
+#fiveday .card-title {
+    font-size: 15px;
+    padding-top: 0;
+}
+
+#fiveday .card {
+    background-color: rgb(1, 90, 255);
+    color: white;
+}
+
+#fiveday .card-text {
+    font-size: 10px;
+}
