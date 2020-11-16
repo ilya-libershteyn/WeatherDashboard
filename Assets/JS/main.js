@@ -23,7 +23,9 @@ $.ajax({
     var output = response.list[2];
 
     // Transfer content to HTML
-    $(".city").html("<h6 class=\"card-title\">" + response.city.name + " (" + moment().format('M/D/YYYY') + ")</h6>");
+    $(".city").html("<h6 class=\"card-title\">" + response.city.name + " (" 
+    + moment().format('M/D/YYYY') + ") <img src=\"http://openweathermap.org/img/w/" 
+    + output.weather[0].icon + ".png\"/></h6>");
    
     // Convert the temp to fahrenheit
     var tempF = (output.main.temp - 273.15) * 1.80 + 32;
@@ -73,8 +75,9 @@ $.ajax({
     for(var i = 3; i < response.list.length; i += 8)
     {
         //$("#day" + day).children().children().children().text(response.list[i].dt_txt);
-        $("#title" + day).text(moment(response.list[i].dt_txt).format('MM/DD/YYYY'));
-        
+        $("#title" + day).html(moment(response.list[i].dt_txt).format('MM/DD/YYYY') 
+        + " <img src=\"http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png\"/>");
+
         var tempD = (response.list[i].main.temp - 273.15) * 1.80 + 32;
 
         $("#temp" + day).text("Temp: " + tempD.toFixed(2) + String.fromCharCode(176) + "F");
