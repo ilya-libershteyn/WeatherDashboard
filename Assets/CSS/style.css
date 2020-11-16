@@ -30,3 +30,7 @@ body {
 #fiveday .card-text {
     font-size: 10px;
 }
+
+.hide {
+    display: none;
+}
