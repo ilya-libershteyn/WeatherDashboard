@@ -1,7 +1,7 @@
 // This is our API key
 const API_KEY = "93f9fe3c09bbe43ec2c0a485b0a0261d";
 
-var searchBtn = $("#search");
+var searchBtn = $("#basic-text1");
 var searchFld = $("#search_field");
 var display = $("#display");
 var citiesList = $("#cities");
@@ -131,9 +131,9 @@ queryLastCity();
 searchBtn.on("click", function(event)
 {
     event.preventDefault();
-
+    console.log(searchFld);
     input = searchFld.val();
-    //console.log(input);
+    console.log(input);
 
     if(input.length == 0)
     {
