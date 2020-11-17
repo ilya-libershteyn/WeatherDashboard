@@ -3,6 +3,8 @@
 ## Description:
 A weather dashboard that displays the temperature, humidy, windspeed and UV index for a city the user searches for, as well as a 5-day temperature and humidity forecast. Recently searched cities are listed below the search bar.
 
+![](https://github.com/ilya-libershteyn/WeatherDashboard/blob/main/Assets/weather_dash.jpg)
+
 ## Links:
 [Link to project](https://ilya-libershteyn.github.io/WeatherDashboard/)
 
