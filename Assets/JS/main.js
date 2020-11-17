@@ -109,22 +109,23 @@ function queryLastCity()
         queryAPI(input);
     }
 
-    citiesReloaded = JSON.parse(localStorage.getItem("cities"));
-    console.log(citiesReloaded)
-    if(citiesReloaded)
+    //citiesReloaded = JSON.parse(localStorage.getItem("cities"));
+    //console.log(citiesReloaded)
+    if(localStorage.getItem("cities"))
     {
+        cities = JSON.parse(localStorage.getItem("cities"));
 
-        for(var i = 0; i < citiesReloaded.length; i++)
+        for(var i = 0; i < cities.length; i++)
         {
             var newBtn = $("<button>").attr("id", "city");
             newBtn.attr("type", "submit");
-            newBtn.text(citiesReloaded[i]);
+            newBtn.text(cities[i]);
             newBtn.addClass("btn btn-rounded");
             citiesList.append(newBtn);
         }
     }
 }
-
+//localStorage.clear();
 queryLastCity();
 
 searchBtn.on("click", function(event)
